@@ -11,4 +11,5 @@ task_scheduler/
 │   ├── settings.py    # Settings page layout
 │
 └── utils/
+    ├── database.py
     └── task_helpers.py
