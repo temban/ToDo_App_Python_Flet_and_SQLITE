@@ -1,0 +1,14 @@
+task_scheduler/
+│
+├── main.py            # Entry point of the application
+├── auth.py            # Auth users
+├── components/
+│   ├── calendar.py    # Calendar-related components
+│   ├── dialogs.py     # Dialog components
+│   ├── sidebar.py     # Sidebar component
+│   ├── task_list.py   # Task list components
+│   ├── top_bar.py     # Top bar component
+│   ├── settings.py    # Settings page layout
+│
+└── utils/
+    └── task_helpers.py
