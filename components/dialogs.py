@@ -117,7 +117,7 @@ def handle_update_task_dialog(page, u_dlg_modal, task_id, label, deadline, note)
         # Show snackbar notification
         page.snack_bar = ft.SnackBar(
             content=ft.Text("Task updated successfully"),
-            duration=7000,
+            duration=3000,
         )
         page.snack_bar.open = True
         page.update()  # Refresh the page to reflect the changes

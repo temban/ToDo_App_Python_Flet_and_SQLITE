@@ -2,7 +2,7 @@ import flet as ft
 from components.calendar import create_calendar_row
 from components.sidebar import create_sidebar
 from components.top_bar import create_top_bar
-from components.dialogs import handle_add_task_dialog, handle_update_task_dialog
+from components.dialogs import handle_add_task_dialog
 from components.task_list import create_task_section
 from components.settings import Settings
 import auth  # Import the authentication module
@@ -29,19 +29,12 @@ def main(page: ft.Page):
 
         page.controls.clear()
 
-        selected_day = "30"  # Use the current selected day or dynamically update this
+        selected_day = "30"
         sidebar = create_sidebar(page)
         top_bar = create_top_bar(page)
         calendar_row = create_calendar_row(page, selected_day)
+        task_section = create_task_section(page, selected_day)
 
-        # Add a function to reload the task section after a task update
-        def reload_task_section():
-            # Reload the task section for the selected day
-            task_section = create_task_section(page, selected_day)
-            main_content.controls[3] = task_section  # Update the task section
-            page.update()  # Refresh the page to reflect the changes
-
-        # Pass `reload_task_section` to update tasks in the dialog
         dlg_modal = ft.AlertDialog()
 
         add_task_button = ft.Container(
@@ -62,7 +55,7 @@ def main(page: ft.Page):
                     top_bar,
                     calendar_row,
                     add_task_button,
-                    create_task_section(page, selected_day),
+                    task_section,
                 ],
                 alignment=ft.MainAxisAlignment.START,
             ),
@@ -72,17 +65,12 @@ def main(page: ft.Page):
 
         page.add(
             ft.Row(
-                controls=[sidebar, main_content],
+                controls=[
+                    sidebar,
+                    main_content,
+                ],
             )
         )
-
-        # Update the dialog to handle task updates with the reload callback
-        def handle_task_update_dialog(task_id, label, deadline, note):
-            handle_update_task_dialog(page, dlg_modal, task_id, label, deadline, note, reload_task_section)
-
-        # For handling task updates (you can implement a button or action that calls handle_task_update_dialog)
-        # Example: handle_task_update_dialog(task_id, label, deadline, note)
-
         page.update()
 
     # Render the Settings Page
