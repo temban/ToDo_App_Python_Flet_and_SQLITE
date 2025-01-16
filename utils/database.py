@@ -46,6 +46,15 @@ def get_all_tasks():
     conn.close()
     return tasks
 
+def update_task_in_db(task_id, label, deadline, note):
+    conn = sqlite3.connect("tasks.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        "UPDATE tasks SET label = ?, deadline = ?, note = ? WHERE id = ?",
+        (label, deadline, note, task_id),
+    )
+    conn.commit()
+    conn.close()
 
 # Ensure the tasks table exists when the app starts
 create_table()
